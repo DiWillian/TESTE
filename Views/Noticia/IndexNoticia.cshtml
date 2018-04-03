@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ExemploValidacao.Models.Noticia>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categorias</h2>
+<div>
+    <ul>
+        @*LISTA DE TODAS AS CATEGORIAS*@
+        @foreach (string item in ViewBag.Categorias)
+        {
+            <li>@Html.ActionLink(item, "MostraCategoria", "Noticia", new { @categoria = item }, null)
+            </li>
+        }
+    </ul>
+</div>
+<div>
+    <h2>Últimas 3 notícias</h2>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.ActionLink(item.Titulo, "MostraNoticia", "Noticia", new
+                    {
+                        @noticiaId = item.NoticiaId,
+                        @categoria = item.Categoria.ToLower(),
+                        @titulo = item.Titulo.ToLower()
+                    }, null)
+                <em>@Html.DisplayFor(modelItem => item.Categoria)</em>
+                <b>@Html.DisplayFor(modelItem => item.Data)</b>
+            </li>
+        }
+    </ul>
+</div>
+<div>
+    @Html.ActionLink("Todas as Noticias", "TodasAsNoticias", "Noticia")
+</div>
